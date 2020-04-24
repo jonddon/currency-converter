@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+
+    <title>Currency Converter</title>
+
+    <style>
+        *{
+            border-radius: 0px !important;
+        }
+        body{
+            background-color: #e7f7f9;
+            font-family: 'Poppins', 'sans-serif';
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container my-5"> 
+            <div class="row">
+                <div class="col-md-6">
+                    <label>From</label>
+                    <select name="from" v-model="from" id="from" class="form-control">
+                        <option :value="currency.id" v-for="currency in formattedCurrencies">
+                            {{currency.currencyName}}
+                        </option>
+                     </select>
+                </div> 
+                <div class="col-md-6">
+                    <label>To</label>
+                    <select v-model="to" name="" id="" class="form-control">
+
+                        <!-- :value was used so that the value will be computed instead of handling it as a string -->
+                        <option :value="currency.id" v-for="currency in formattedCurrencies">
+                            {{currency.currencyName}}
+                            {{currency.id}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 offset-md-3">
+                    <!-- V-model is to bind data two way  -->
+                    <input type="number" v-model="amount" placeholder="Amount" class="form-control my-5">
+                    <div class="text-center">
+                        <button :disabled="disabled" @click="convertCurrency()" class="btn btn-lg btn-primary">
+                            {{ loading ? 'Converting...': 'Convert'}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3 my-5">
+                    <h1 class="text-center display-2 mt-5">
+                        {{calculateResult}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
